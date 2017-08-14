@@ -1,4 +1,4 @@
-package br.com.andrecouto.kotlin.chatlib.socketio
+package br.com.andrecouto.kotlin.chatlib.socketio.interfaces
 
 interface SocketListener {
     fun onSocketConnected()

@@ -1,4 +1,4 @@
-package br.com.andrecouto.kotlin.chatlib.socketio
+package br.com.andrecouto.kotlin.chatlib.socketio.events
 
 object SocketEventConstants {
     var newMessage = "new message"
