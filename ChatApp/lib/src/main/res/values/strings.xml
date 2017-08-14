@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">ChatLib</string>
+    <string name="action_leave">Deixar</string>
+    <string name="action_send">Enviar</string>
+    <string name="prompt_message">Mensageme</string>
+
+    <string name="error_connect">Conexão falhou</string>
+    <!-- messages -->
+    <string name="message_welcome">Bem-vindo ao Chat –</string>
+    <plurals name="message_participants">
+        <item quantity="one">Tem %d participante</item>
+        <item quantity="other">Têm %d participantes</item>
+    </plurals>
+    <string name="message_user_joined">%s entrou</string>
+    <string name="message_user_left">%s saiu</string>
+    <string name="user_action_typing">digitando</string>
+    <string name="sign_in">Entrar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="close">fechar</string>
+    <string name="error_field_required">This is a required field</string>
+    <string name="title_activity_login">juntar</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_username">What\'s your nickname?</string>
+    <string name="action_sign_in">juntar</string>
+    <string name="action_sign_in_short">juntar</string>
+    <string name="title_activity_dummy">Dummy</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+</resources>
