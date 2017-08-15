@@ -2,7 +2,9 @@ package br.com.andrecouto.kotlin.chatlib
 
 import android.app.Application
 import android.content.Context
-class AppContext: Application() {
+import br.com.andrecouto.kotlin.chatlib.socketio.listener.AppSocketListener
+
+class ChatApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -11,11 +13,11 @@ class AppContext: Application() {
     }
 
     fun initializeSocket() {
-        //AppSocketListener.getInstance().initialize()
+        AppSocketListener.instance.initialize()
     }
 
     fun destroySocketListener() {
-        //AppSocketListener.getInstance().destroy()
+        AppSocketListener.instance.destroy()
     }
 
     override fun onTerminate() {

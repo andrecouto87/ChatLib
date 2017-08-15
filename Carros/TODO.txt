@@ -1,3 +1,0 @@
-val dao = CarrosApplication.getInstance().getDatabase().carroDAO()
-
-findViewById
