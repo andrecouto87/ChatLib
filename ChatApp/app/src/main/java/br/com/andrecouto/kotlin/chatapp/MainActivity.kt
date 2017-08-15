@@ -19,6 +19,4 @@ class MainActivity : AppCompatActivity() {
         mIntent.putExtra("nickname", nickname)
         startActivity(mIntent)
     }
-
-
 }
