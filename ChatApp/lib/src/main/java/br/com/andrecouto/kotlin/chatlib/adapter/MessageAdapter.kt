@@ -55,7 +55,7 @@ class MessageAdapter(
         return mMessages.get(position).type
     }
 
-    fun setMessage(txtuser: TextView, txtlog: TextView, message: String) {
+    fun setMessage(txtuser: TextView?, txtlog: TextView?, message: String) {
         if (null == txtuser || null == txtlog) return
 
         if (null != txtuser) {
@@ -67,7 +67,7 @@ class MessageAdapter(
         }
     }
 
-    fun setUserName(txtaction: TextView, txtmessage: TextView, username: String) {
+    fun setUserName(txtaction: TextView?, txtmessage: TextView?, username: String) {
         if (null == txtaction || null == txtmessage) return
 
         if(null != txtaction) {

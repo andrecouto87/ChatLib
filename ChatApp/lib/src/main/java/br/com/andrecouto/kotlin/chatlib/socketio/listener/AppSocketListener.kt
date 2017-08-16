@@ -48,7 +48,6 @@ class AppSocketListener: SocketListener {
         }
     }
 
-    @SuppressLint("WrongConstant")
     fun initialize(context: Context) {
         val intent = Intent(context, SocketIOService::class.java)
         context.startService(intent)
