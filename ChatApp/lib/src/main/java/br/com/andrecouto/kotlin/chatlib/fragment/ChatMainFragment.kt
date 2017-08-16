@@ -91,7 +91,7 @@ class ChatMainFragment: BaseFragment(), SocketListener {
 
         message_input.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                //To change body of created functions use File | Settings | File Templates.
             }
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
