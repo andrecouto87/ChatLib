@@ -56,24 +56,24 @@ class MessageAdapter(
     }
 
     fun setMessage(txtuser: TextView?, txtlog: TextView?, message: String) {
-        if (null == txtuser || null == txtlog) return
+        if (null == txtuser && null == txtlog) return
 
         if (null != txtuser) {
             txtuser.setText(message)
             txtuser.setTextColor(getUsernameColor(message))
         } else {
-            txtlog.setText(message)
-            txtlog.setTextColor(getUsernameColor(message))
+            txtlog!!.setText(message)
+            txtlog!!.setTextColor(getUsernameColor(message))
         }
     }
 
     fun setUserName(txtaction: TextView?, txtmessage: TextView?, username: String) {
-        if (null == txtaction || null == txtmessage) return
+        if (null == txtaction && null == txtmessage) return
 
         if(null != txtaction) {
             txtaction.setText(username)
         } else {
-            txtmessage.setText(username)
+            txtmessage!!.setText(username)
         }
     }
 

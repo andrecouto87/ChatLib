@@ -57,7 +57,6 @@ class ChatMainFragment: BaseFragment(), SocketListener {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Retorna a view /res/layout/fragment_carros.xml
         val view = inflater?.inflate(R.layout.fragment_chat_main, container, false)
         return view
     }
@@ -75,6 +74,7 @@ class ChatMainFragment: BaseFragment(), SocketListener {
         AppSocketListener.instance.off(SocketEventConstants.userLeft)
         AppSocketListener.instance.off(SocketEventConstants.typing)
         AppSocketListener.instance.off(SocketEventConstants.stopTyping)
+        AppSocketListener.instance.off(SocketEventConstants.login)
     }
 
     override fun onViewCreated(view:View, savedInstanceState:Bundle?) {
@@ -364,6 +364,7 @@ class ChatMainFragment: BaseFragment(), SocketListener {
         AppSocketListener.instance.addOnHandler(SocketEventConstants.typing, onTyping)
         AppSocketListener.instance.addOnHandler(SocketEventConstants.stopTyping, onStopTyping)
         AppSocketListener.instance.addOnHandler(SocketEventConstants.login, onLogin)
+        AppSocketListener.instance.addOnHandler(SocketEventConstants.newMessage, onNewMessage)
 
         if (mUsername != null) {
             AppSocketListener.instance.emit(SocketEventConstants.addUser, mUsername)

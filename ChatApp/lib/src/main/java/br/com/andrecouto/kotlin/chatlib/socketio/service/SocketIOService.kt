@@ -69,8 +69,8 @@ class SocketIOService:Service() {
         try
         {
             val options = IO.Options()
-            options.timeout = 40000
             options.forceNew = true
+            options.reconnection = false
             mSocket = IO.socket(Constants.CHAT_SERVER_URL, options)
         }
         catch (e: Exception) {
