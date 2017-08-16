@@ -40,6 +40,7 @@ class ChatMainFragment: BaseFragment(), SocketListener {
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mUsername = getActivity().getIntent().getStringExtra("nickname")
         AppSocketListener.instance.setActiveSocketListener(this)
         // Restart Socket.io to avoid weird stuff ;-)
         AppSocketListener.instance.restartSocket()
