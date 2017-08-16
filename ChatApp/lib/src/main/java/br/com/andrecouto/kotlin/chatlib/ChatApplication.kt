@@ -9,11 +9,11 @@ class ChatApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         appContext = applicationContext
-        initializeSocket()
+        initializeSocket(appContext!!)
     }
 
-    fun initializeSocket() {
-        AppSocketListener.instance.initialize()
+    fun initializeSocket(context: Context) {
+        AppSocketListener.instance.initialize(context)
     }
 
     fun destroySocketListener() {

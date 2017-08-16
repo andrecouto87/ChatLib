@@ -3,20 +3,24 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "br.com.andrecouto.kotlin.chatapp"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        debug {
+            versionNameSuffix '-debug'
+            testCoverageEnabled true
+            debuggable true
+            signingConfig signingConfigs.debug
+            multiDexEnabled true
+            proguardFile 'proguard-rules.pro'
         }
     }
 }
@@ -26,21 +30,15 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile project(':lib')
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile "org.jetbrains.anko:anko-commons:$anko_version"
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:design:26.0.0-beta2'
+    implementation 'com.android.support:recyclerview-v7:26.0.0-beta2'
+    implementation 'com.android.support:cardview-v7:26.0.0-beta2'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile('br.com.andrecouto.kotlin:chatlib:0.0.2') {
-        transitive = true
-        exclude group: 'com.google.android.gms', module: 'play-services'
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'com.android.support', module: 'design'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude module: 'recyclerview-v7'
-    }
 }
 
 repositories {

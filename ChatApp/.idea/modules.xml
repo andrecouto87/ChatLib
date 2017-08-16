@@ -3,11 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ChatApp.iml" filepath="$PROJECT_DIR$/ChatApp.iml" />
-      <module fileurl="file://C:\desenvolvimento\socketappdemo\ChatAppKotlin\ChatApp\ChatApp.iml" filepath="C:\desenvolvimento\socketappdemo\ChatAppKotlin\ChatApp\ChatApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\desenvolvimento\socketappdemo\ChatAppKotlin\ChatApp\app\app.iml" filepath="C:\desenvolvimento\socketappdemo\ChatAppKotlin\ChatApp\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/lib.iml" filepath="$PROJECT_DIR$/lib/lib.iml" />
-      <module fileurl="file://C:\desenvolvimento\socketappdemo\ChatAppKotlin\ChatApp\lib\lib.iml" filepath="C:\desenvolvimento\socketappdemo\ChatAppKotlin\ChatApp\lib\lib.iml" />
     </modules>
   </component>
 </project>

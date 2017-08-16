@@ -1,5 +1,6 @@
 package br.com.andrecouto.kotlin.chatlib.socketio.listener
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
@@ -47,13 +48,14 @@ class AppSocketListener: SocketListener {
         }
     }
 
-    fun initialize() {
-        val intent = Intent(ChatApplication.appContext, SocketIOService::class.java)
-        ChatApplication.appContext!!.startService(intent)
-        ChatApplication.appContext!!.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
-        LocalBroadcastManager.getInstance(ChatApplication.appContext).registerReceiver(socketConnectionReceiver, IntentFilter(SocketEventConstants.socketConnection))
-        LocalBroadcastManager.getInstance(ChatApplication.appContext).registerReceiver(connectionFailureReceiver, IntentFilter(SocketEventConstants.connectionFailure))
-        LocalBroadcastManager.getInstance(ChatApplication.appContext).registerReceiver(newMessageReceiver, IntentFilter(SocketEventConstants.newMessage))
+    @SuppressLint("WrongConstant")
+    fun initialize(context: Context) {
+        val intent = Intent(context, SocketIOService::class.java)
+        context.startService(intent)
+        context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+        LocalBroadcastManager.getInstance(context).registerReceiver(socketConnectionReceiver, IntentFilter(SocketEventConstants.socketConnection))
+        LocalBroadcastManager.getInstance(context).registerReceiver(connectionFailureReceiver, IntentFilter(SocketEventConstants.connectionFailure))
+        LocalBroadcastManager.getInstance(context).registerReceiver(newMessageReceiver, IntentFilter(SocketEventConstants.newMessage))
     }
 
     private val socketConnectionReceiver = object:BroadcastReceiver() {

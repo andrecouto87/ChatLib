@@ -6,7 +6,7 @@
     android:paddingTop="@dimen/spacing">
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/username_message"
         style="?android:textAppearanceMedium"
         android:textColor="?android:textColorPrimary"
         android:layout_width="wrap_content"
@@ -14,7 +14,7 @@
         android:singleLine="true"
         android:textStyle="bold"/>
     <TextView
-        android:id="@+id/message"
+        android:id="@+id/message_item"
         style="?android:textAppearanceMedium"
         android:textColor="?android:textColorPrimary"
         android:layout_width="wrap_content"
