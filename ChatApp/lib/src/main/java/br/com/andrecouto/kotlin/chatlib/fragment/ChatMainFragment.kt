@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.JsonWriter
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -23,6 +24,9 @@ import br.com.andrecouto.kotlin.chatlib.entity.Message
 import br.com.andrecouto.kotlin.chatlib.socketio.events.SocketEventConstants
 import br.com.andrecouto.kotlin.chatlib.socketio.interfaces.SocketListener
 import br.com.andrecouto.kotlin.chatlib.socketio.listener.AppSocketListener
+import com.beust.klaxon.JsonObject
+import com.beust.klaxon.Parser
+import io.socket.client.Ack
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.fragment_chat_main.*
@@ -36,7 +40,7 @@ class ChatMainFragment: BaseFragment(), SocketListener {
     private var mMessages = ArrayList<Message>()
     private var mTyping = false
     private var mTypingHandler = Handler()
-    private var mUsername:String = ""
+    private var mUsername:Any = ""
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,7 +104,7 @@ class ChatMainFragment: BaseFragment(), SocketListener {
                 // if (!mSocket.connected()) return;
                 if (!mTyping) {
                     mTyping = true
-                    AppSocketListener.instance.emit("typing")
+                    AppSocketListener.instance.emit("typing", null)
                 }
                 mTypingHandler.removeCallbacks(onTypingTimeout)
                 mTypingHandler.postDelayed(onTypingTimeout, TYPING_TIMER_LENGTH)
@@ -172,17 +176,17 @@ class ChatMainFragment: BaseFragment(), SocketListener {
     private fun attemptSend() {
         if (null == mUsername) return
         mTyping = false
-        val message: String = message_input.getText().trim().toString()
-        if (TextUtils.isEmpty(message)) {
+        val message: Any = message_input.getText().trim().toString()
+        if (TextUtils.isEmpty(message.toString())) {
             message_input.requestFocus()
             return
         }
+        Log.i("message", message.toString())
         message_input.setText("")
+        val a = arrayOf(message)
+        AppSocketListener.instance.emit("new message", a)
 
-        // perform the sending message attempt.
-        AppSocketListener.instance.emit("new message", message)
-
-        addMessage(mUsername, message)
+        addMessage(mUsername.toString(), message.toString())
     }
 
     /*private fun attemptAutoLogin() {
@@ -354,7 +358,7 @@ class ChatMainFragment: BaseFragment(), SocketListener {
         public override fun run() {
             if (!mTyping) return
             mTyping = false
-            AppSocketListener.instance.emit(SocketEventConstants.stopTyping)
+            AppSocketListener.instance.emit(SocketEventConstants.stopTyping, null)
         }
     }
 
@@ -367,9 +371,9 @@ class ChatMainFragment: BaseFragment(), SocketListener {
         AppSocketListener.instance.addOnHandler(SocketEventConstants.stopTyping, onStopTyping)
         AppSocketListener.instance.addOnHandler(SocketEventConstants.login, onLogin)
         AppSocketListener.instance.addOnHandler(SocketEventConstants.newMessage, onNewMessage)
-
+        val a = arrayOf(mUsername)
         if (mUsername != null) {
-            AppSocketListener.instance.emit(SocketEventConstants.addUser, mUsername)
+            AppSocketListener.instance.emit(SocketEventConstants.addUser, a)
         }
     }
 

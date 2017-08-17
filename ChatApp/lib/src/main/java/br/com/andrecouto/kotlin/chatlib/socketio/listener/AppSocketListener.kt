@@ -123,7 +123,7 @@ class AppSocketListener: SocketListener {
         socketServiceInterface!!.emit(event, args, ack)
     }
 
-    fun emit(event:String, vararg args:Any) {
+    fun emit(event:String, args:Array<Any>?) {
         socketServiceInterface!!.emit(event, args)
     }
 

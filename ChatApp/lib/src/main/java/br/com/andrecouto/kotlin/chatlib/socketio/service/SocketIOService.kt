@@ -141,15 +141,16 @@ class SocketIOService:Service() {
             }
         })
     }
+
     fun removeMessageHandler() {
         mSocket!!.off(SocketEventConstants.newMessage)
     }
 
-    fun emit(event:String, args:Array<Any>, ack:Ack) {
+    fun emit(event:String, args:Array<Any>?, ack:Ack) {
         mSocket!!.emit(event, args, ack)
     }
 
-    fun emit(event:String, vararg args:Any) {
+    fun emit(event:String, args:Array<Any>?) {
         try
         {
             mSocket!!.emit(event, args, null)
