@@ -70,7 +70,6 @@ class SocketIOService:Service() {
         {
             val options = IO.Options()
             options.forceNew = true
-            options.reconnection = false
             mSocket = IO.socket(Constants.CHAT_SERVER_URL, options)
         }
         catch (e: Exception) {

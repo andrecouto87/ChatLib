@@ -181,12 +181,10 @@ class ChatMainFragment: BaseFragment(), SocketListener {
             message_input.requestFocus()
             return
         }
-        Log.i("message", message.toString())
+        addMessage(mUsername.toString(), message.toString())
         message_input.setText("")
         val a = arrayOf(message)
         AppSocketListener.instance.emit("new message", a)
-
-        addMessage(mUsername.toString(), message.toString())
     }
 
     /*private fun attemptAutoLogin() {
