@@ -144,9 +144,11 @@ class SocketIOService:Service() {
     fun removeMessageHandler() {
         mSocket!!.off(SocketEventConstants.newMessage)
     }
+
     fun emit(event:String, args:Array<Any>, ack:Ack) {
         mSocket!!.emit(event, args, ack)
     }
+
     fun emit(event:String, vararg args:Any) {
         try
         {
@@ -156,6 +158,7 @@ class SocketIOService:Service() {
             e.printStackTrace()
         }
     }
+
     fun addOnHandler(event:String, listener:Emitter.Listener) {
         mSocket!!.on(event, listener)
     }

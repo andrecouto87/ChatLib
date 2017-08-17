@@ -172,15 +172,17 @@ class ChatMainFragment: BaseFragment(), SocketListener {
     private fun attemptSend() {
         if (null == mUsername) return
         mTyping = false
-        val message = message_input.getText().toString().trim()
+        val message: String = message_input.getText().trim().toString()
         if (TextUtils.isEmpty(message)) {
             message_input.requestFocus()
             return
         }
         message_input.setText("")
-        addMessage(mUsername, message)
+
         // perform the sending message attempt.
         AppSocketListener.instance.emit("new message", message)
+
+        addMessage(mUsername, message)
     }
 
     /*private fun attemptAutoLogin() {
