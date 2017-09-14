@@ -1,6 +1,5 @@
 package br.com.andrecouto.kotlin.chatlib.socketio.listener
 
-import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
@@ -49,6 +48,7 @@ class AppSocketListener: SocketListener {
     }
 
     fun initialize(context: Context) {
+        ChatApplication.appContext = context
         val intent = Intent(context, SocketIOService::class.java)
         context.startService(intent)
         context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
@@ -111,33 +111,33 @@ class AppSocketListener: SocketListener {
     override fun onNewMessageReceived(username:String, message:String) {
         if (activeSocketListener != null)
         {
-            activeSocketListener!!.onNewMessageReceived(username, message)
+            activeSocketListener?.onNewMessageReceived(username, message)
         }
     }
 
     fun addOnHandler(event:String, listener:Emitter.Listener) {
-        socketServiceInterface!!.addOnHandler(event, listener)
+        socketServiceInterface?.addOnHandler(event, listener)
     }
 
     fun emit(event:String, args:Array<Any>, ack:Ack) {
-        socketServiceInterface!!.emit(event, args, ack)
+        socketServiceInterface?.emit(event, args, ack)
     }
 
     fun emit(event:String, args:Array<Any>?) {
-        socketServiceInterface!!.emit(event, args)
+        socketServiceInterface?.emit(event, args)
     }
 
     internal fun connect() {
-        socketServiceInterface!!.connect()
+        socketServiceInterface?.connect()
     }
 
     fun disconnect() {
-        socketServiceInterface!!.disconnect()
+        socketServiceInterface?.disconnect()
     }
     fun off(event:String) {
         if (socketServiceInterface != null)
         {
-            socketServiceInterface!!.off(event)
+            socketServiceInterface?.off(event)
         }
     }
     val isSocketConnected:Boolean
@@ -151,31 +151,35 @@ class AppSocketListener: SocketListener {
     fun setAppConnectedToService(status:Boolean) {
         if (socketServiceInterface != null)
         {
-            socketServiceInterface!!.setAppConnectedToService(status)
+            socketServiceInterface?.setAppConnectedToService(status)
         }
     }
     fun restartSocket() {
         if (socketServiceInterface != null)
         {
-            socketServiceInterface!!.restartSocket()
+            socketServiceInterface?.restartSocket()
         }
     }
     fun addNewMessageHandler() {
         if (socketServiceInterface != null)
         {
-            socketServiceInterface!!.addNewMessageHandler()
+            socketServiceInterface?.addNewMessageHandler()
         }
     }
     fun removeNewMessageHandler() {
         if (socketServiceInterface != null)
         {
-            socketServiceInterface!!.removeMessageHandler()
+            socketServiceInterface?.removeMessageHandler()
         }
     }
     fun signOutUser() {
         AppSocketListener.instance.disconnect()
         removeNewMessageHandler()
         AppSocketListener.instance.connect()
+    }
+    fun disconnectUser() {
+        AppSocketListener.instance.disconnect()
+        removeNewMessageHandler()
     }
     companion object {
         private var sharedInstance : AppSocketListener? = null

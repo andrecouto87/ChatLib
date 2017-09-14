@@ -101,7 +101,7 @@ class ChatMainFragment: BaseFragment(), SocketListener {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (null == mUsername) return
-                // if (!mSocket.connected()) return;
+                if (!AppSocketListener.instance.isSocketConnected) return;
                 if (!mTyping) {
                     mTyping = true
                     AppSocketListener.instance.emit("typing", null)
@@ -121,7 +121,7 @@ class ChatMainFragment: BaseFragment(), SocketListener {
 
     }
 
-    override fun onActivityResult(requestCode:Int, resultCode:Int, data: Intent) {
+    /*override fun onActivityResult(requestCode:Int, resultCode:Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
         if (Activity.RESULT_OK !== resultCode)
         {
@@ -132,7 +132,7 @@ class ChatMainFragment: BaseFragment(), SocketListener {
         val numUsers = data.getIntExtra("numUsers", 1)
         addLog(getResources().getString(R.string.message_welcome))
         addParticipantsLog(numUsers)
-    }
+    }*/
 
     private fun addLog(message:String) {
         getActivity().runOnUiThread(object:Runnable {

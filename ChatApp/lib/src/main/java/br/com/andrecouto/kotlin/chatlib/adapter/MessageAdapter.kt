@@ -60,7 +60,6 @@ class MessageAdapter(
 
         if (null != txtuser) {
             txtuser.setText(message)
-            txtuser.setTextColor(getUsernameColor(message))
         } else {
             txtlog!!.setText(message)
             txtlog!!.setTextColor(getUsernameColor(message))
@@ -74,6 +73,7 @@ class MessageAdapter(
             txtaction.setText(username)
         } else {
             txtmessage!!.setText(username)
+            txtmessage.setTextColor(getUsernameColor(username))
         }
     }
 

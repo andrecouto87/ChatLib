@@ -47,22 +47,22 @@ class SocketIOService:Service() {
     fun setServiceBinded(serviceBinded:Boolean) {
         this.serviceBinded = serviceBinded
     }
-    override fun onBind(intent:Intent):IBinder {
+    override fun onBind(intent:Intent?):IBinder {
         return mBinder
     }
     override fun onCreate() {
         super.onCreate()
         initializeSocket()
-        addSocketHandlers()
+        //addSocketHandlers()
     }
     override fun onDestroy() {
         super.onDestroy()
         closeSocketSession()
     }
-    override fun onUnbind(intent:Intent):Boolean {
+    override fun onUnbind(intent:Intent?):Boolean {
         return serviceBinded
     }
-    override fun onStartCommand(intent:Intent, flags:Int, startId:Int):Int {
+    override fun onStartCommand(intent:Intent?, flags:Int, startId:Int):Int {
         return START_STICKY
     }
     private fun initializeSocket() {
@@ -78,42 +78,42 @@ class SocketIOService:Service() {
         }
     }
     private fun closeSocketSession() {
-        mSocket!!.disconnect()
-        mSocket!!.off()
+        mSocket?.disconnect()
+        mSocket?.off()
     }
     private fun addSocketHandlers() {
-        mSocket!!.on(Socket.EVENT_CONNECT, object:Emitter.Listener {
+        mSocket?.on(Socket.EVENT_CONNECT, object:Emitter.Listener {
             override fun call(vararg args:Any) {
                 val intent = Intent(SocketEventConstants.socketConnection)
                 intent.putExtra("connectionStatus", true)
                 broadcastEvent(intent)
             }
         })
-        mSocket!!.on(Socket.EVENT_DISCONNECT, object:Emitter.Listener {
+        mSocket?.on(Socket.EVENT_DISCONNECT, object:Emitter.Listener {
             override fun call(vararg args:Any) {
                 val intent = Intent(SocketEventConstants.socketConnection)
                 intent.putExtra("connectionStatus", false)
                 broadcastEvent(intent)
             }
         })
-        mSocket!!.on(Socket.EVENT_CONNECT_ERROR, object:Emitter.Listener {
+        mSocket?.on(Socket.EVENT_CONNECT_ERROR, object:Emitter.Listener {
             override fun call(vararg args:Any) {
                 val intent = Intent(SocketEventConstants.connectionFailure)
                 broadcastEvent(intent)
             }
         })
-        mSocket!!.on(Socket.EVENT_CONNECT_TIMEOUT, object:Emitter.Listener {
+        mSocket?.on(Socket.EVENT_CONNECT_TIMEOUT, object:Emitter.Listener {
             override fun call(vararg args:Any) {
                 val intent = Intent(SocketEventConstants.connectionFailure)
                 broadcastEvent(intent)
             }
         })
 
-        mSocket!!.connect()
+        mSocket?.connect()
     }
     fun addNewMessageHandler() {
-        mSocket!!.off(SocketEventConstants.newMessage)
-        mSocket!!.on(SocketEventConstants.newMessage, object:Emitter.Listener {
+        mSocket?.off(SocketEventConstants.newMessage)
+        mSocket?.on(SocketEventConstants.newMessage, object:Emitter.Listener {
             override fun call(vararg args:Any) {
                 val data = args[0] as JSONObject
                 val username:String
@@ -142,17 +142,17 @@ class SocketIOService:Service() {
     }
 
     fun removeMessageHandler() {
-        mSocket!!.off(SocketEventConstants.newMessage)
+        mSocket?.off(SocketEventConstants.newMessage)
     }
 
     fun emit(event:String, args:Array<Any>?, ack:Ack) {
-        mSocket!!.emit(event, args, ack)
+        mSocket?.emit(event, args, ack)
     }
 
     fun emit(event:String, args:Array<Any>?) {
         try
         {
-            mSocket!!.emit(event, args, null)
+            mSocket?.emit(event, args, null)
         }
         catch (e:Exception) {
             e.printStackTrace()
@@ -160,21 +160,21 @@ class SocketIOService:Service() {
     }
 
     fun addOnHandler(event:String, listener:Emitter.Listener) {
-        mSocket!!.on(event, listener)
+        mSocket?.on(event, listener)
     }
     fun connect() {
-        mSocket!!.connect()
+        mSocket?.connect()
     }
     fun disconnect() {
-        mSocket!!.disconnect()
+        mSocket?.disconnect()
     }
     fun restartSocket() {
-        mSocket!!.off()
-        mSocket!!.disconnect()
+        mSocket?.off()
+        mSocket?.disconnect()
         addSocketHandlers()
     }
     fun off(event:String) {
-        mSocket!!.off(event)
+        mSocket?.off(event)
     }
     private fun broadcastEvent(intent:Intent) {
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
